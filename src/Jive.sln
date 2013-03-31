@@ -69,7 +69,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "luaprofiler", "luaprofiler-
 		{432D23FC-5507-446F-AA7A-689166AA92EF} = {432D23FC-5507-446F-AA7A-689166AA92EF}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "portaudio", "portaudio_v19_1360\build\msvc\portaudio.vcproj", "{0A18A071-125E-442F-AFF7-A3F68ABECF99}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "portaudio", "portaudio\build\msvc\portaudio.vcproj", "{0A18A071-125E-442F-AFF7-A3F68ABECF99}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libFLAC_dynamic", "flac-1.2.1\src\libFLAC\libFLAC_dynamic.vcproj", "{4CEFBC83-C215-11DB-8314-0800200C9A66}"
 EndProject

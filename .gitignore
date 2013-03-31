@@ -1,0 +1,6 @@
+build
+*~
+*.bak
+*.o
+*.lo
+*.la

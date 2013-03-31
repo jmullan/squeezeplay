@@ -143,11 +143,11 @@ squeezeplay-all: portaudio flac libmad tremor rtmp squeezeplay squeezeplay_jive 
 
 
 # portaudio
-portaudio_v19_1360/Makefile:
-	cd portaudio_v19_1360; ./configure --without-jack --without-oss --host=${TARGET} --target=${TARGET} --prefix=${PREFIX}
+portaudio/Makefile:
+	cd portaudio; ./configure --without-jack --without-oss --host=${TARGET} --target=${TARGET} --prefix=${PREFIX}
 
-portaudio: portaudio_v19_1360/Makefile
-	cd portaudio_v19_1360; make && make install
+portaudio: portaudio/Makefile
+	cd portaudio; make && make install
 
 # flac
 flac-1.2.1/Makefile:
@@ -218,7 +218,7 @@ clean:
 	-cd luazipfilter; make distclean
 	-cd luaprofiler; make -f Makefile.linux clean
 	-cd tolua++-1.0.92/src/lib; rm libtolua++.so; rm *.o
-	-cd portaudio_v19_1360; make distclean
+	-cd portaudio; make distclean
 	-cd flac-1.2.1; make distclean
 	-cd libmad-0.15.1b; make distclean
 	-cd Tremor; make distclean

@@ -104,9 +104,9 @@ static inline void debug_fullness(void)
 		streambuf_get_status(&size, &usedbytes, &bytesL, &bytesH);
 		dfull = (float)(usedbytes * 100) / (float)size;
 		ofull = (float)(fifo_bytes_used(&decode_audio->fifo) * 100) / (float)decode_audio->fifo.size;
-		
+
 		LOG_DEBUG(log_audio_decode, "fullness: %d / %d | %0.2f%% / %0.2f%%",
-			usedbytes, fifo_bytes_used(&decode_audio->fifo), 
+			usedbytes, fifo_bytes_used(&decode_audio->fifo),
 			dfull, ofull);
 		decode_audio_unlock();
 	}
@@ -127,7 +127,7 @@ static void decode_resume_audio_handler(void) {
 
 	start_jiffies = mqueue_read_u32(&decode_mqueue);
 	mqueue_read_complete(&decode_mqueue);
-	
+
 	LOG_DEBUG(log_audio_decode, "decode_resume_audio_handler start_jiffies=%u", start_jiffies);
 	debug_fullness();
 
@@ -350,7 +350,7 @@ static bool_t decode_timer_interval(u32_t *delay) {
 	/* special case for flac as it has a minimum number of bytes before the decoder processes anything */
 	if (streambuf_would_wait_for(decoder == &decode_flac ? DECODE_MINIMUM_BYTES_FLAC : DECODE_MINIMUM_BYTES_OTHER)) {
 		*delay = DECODE_WAIT_INTERVAL;
-		
+
 		return false;
 	}
 
@@ -445,7 +445,7 @@ static int decode_thread_execute(void *unused) {
 				obuf = (output_full * 100) / (double)output_size;
 
 
-				printf("elapsed:%llu buffers: %0.1f%%/%0.1f%%\n", (long long unsigned int)elapsed, dbuf, obuf);
+				printf("elapsed:%PRIu64 buffers: %0.1f%%/%0.1f%%\n", (long long unsigned int)elapsed, dbuf, obuf);
 			}
 		}
 
@@ -728,7 +728,7 @@ static int decode_start(lua_State *L) {
 		mqueue_write_u32(&decode_mqueue, (Uint32) luaL_optinteger(L, 6, 0)); /* output_threshold */
 		mqueue_write_u32(&decode_mqueue, (Uint32) luaL_optinteger(L, 7, 0)); /* polarity_inversion */
 		mqueue_write_u32(&decode_mqueue, (Uint32) luaL_optinteger(L, 8, 0)); /* output_channels */
-		
+
 		num_params = lua_gettop(L) - 8;
 		mqueue_write_u32(&decode_mqueue, num_params);
 		for (i = 0; i < num_params; i++) {
@@ -841,10 +841,10 @@ static int decode_status(lua_State *L) {
 	}
 	lua_pushinteger(L, (u32_t)elapsed);
 	lua_setfield(L, -2, "elapsed");
-	
+
 	lua_pushinteger(L, elapsed_jiffies);
 	lua_setfield(L, -2, "elapsed_jiffies");
-	
+
 	lua_pushinteger(L, decode_audio->num_tracks_started);
 	lua_setfield(L, -2, "tracksStarted");
 
@@ -1098,4 +1098,3 @@ int luaopen_decode(lua_State *L) {
 
 	return 0;
 }
-

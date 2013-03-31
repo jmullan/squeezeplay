@@ -7,7 +7,7 @@
 # Absolute path to top of SQUEEZEPLAY directories
 #
 
-SRC_DIR = $(realpath ${PWD})
+SRC_DIR = $(realpath $(shell pwd))
 BASE_DIR = $(dir ${SRC_DIR})
 
 export BUILD_TOP=$(BASE_DIR)/build/linux
@@ -25,7 +25,7 @@ export SDL_CONFIG = ${BUILD_TOP}/bin/sdl-config
 ENABLE_PROFILING=--enable-profiling --disable-shared
 USE_MMX=--disable-mmx
 
-# Override to yes to build closed source squeezeplay libraries 
+# Override to yes to build closed source squeezeplay libraries
 SPPRIVATE=no
 
 ifeq ($(SPPRIVATE),yes)
@@ -143,7 +143,7 @@ luafilesystem:
 	cd luafilesystem-1.2 && make install PREFIX=${PREFIX} PLATFORM=linux
 
 luaprofiler:
-	cd luaprofiler-2.0 && make -f Makefile.linux install
+        cd luaprofiler-2.0 && LD="gcc -shared" make -f Makefile.linux install
 
 # just compile the library for to tolua++
 .PHONY: tolua++
@@ -159,14 +159,14 @@ tolua++: lua
 #
 
 .PHONY: app portaudio flac libmad tremor squeezeplay squeezeplay_desktop squeezeplay_contrib squeezeplay_private freefont freefont-debian axtls rtmp
-app: portaudio flac libmad tremor ${SPPRIVATE_TARGETS} squeezeplay squeezeplay_desktop squeezeplay_contrib freefont rtmp squeezeplay-tgz 
+app: portaudio flac libmad tremor ${SPPRIVATE_TARGETS} squeezeplay squeezeplay_desktop squeezeplay_contrib freefont rtmp squeezeplay-tgz
 
 # portaudio
-portaudio_v19_1360/Makefile:
-	cd portaudio_v19_1360; ./configure --host=${HOST} --target=${TARGET} --prefix=${PREFIX}
+portaudio/Makefile:
+	cd portaudio; ./configure --host=${HOST} --target=${TARGET} --prefix=${PREFIX}
 
-portaudio: portaudio_v19_1360/Makefile
-	cd portaudio_v19_1360; make && make install
+portaudio: portaudio/Makefile
+	cd portaudio; make && make install
 
 # flac
 flac-1.2.1/Makefile:
@@ -180,9 +180,9 @@ LIBMAD_DIR=libmad-0.15.1b
 generated/${LIBMAD_DIR}/Makefile.am:
 	mkdir -p generated; cd generated; wget ftp://ftp.mars.org/pub/mpeg/${LIBMAD_DIR}.tar.gz; tar xvf ./${LIBMAD_DIR}.tar.gz; \
 
-		
-generated/${LIBMAD_DIR}/Makefile: generated/${LIBMAD_DIR}/Makefile.am 
-	cd generated/${LIBMAD_DIR}; ./configure --host=${HOST} --target=${TARGET} --prefix=${PREFIX} 
+
+generated/${LIBMAD_DIR}/Makefile: generated/${LIBMAD_DIR}/Makefile.am
+	cd generated/${LIBMAD_DIR}; ./configure --host=${HOST} --target=${TARGET} --prefix=${PREFIX}
 
 libmad: generated/${LIBMAD_DIR}/Makefile.am generated/${LIBMAD_DIR}/Makefile
 	cd generated/${LIBMAD_DIR}; make && make install
@@ -209,7 +209,7 @@ axtls: ${AXTLS_DIR}/Makefile
 
 rtmp: squeezeplay
 	cd luartmp-squeezeplay; make
-	cp luartmp-squeezeplay/rtmp.so ${PREFIX}/lib/lua/5.1/rtmp.so 
+	cp luartmp-squeezeplay/rtmp.so ${PREFIX}/lib/lua/5.1/rtmp.so
 
 
 # squeezeplay
@@ -242,9 +242,9 @@ freefont:
 	cp freefont-20090104/FreeSans.ttf ${PREFIX}/share/jive/fonts
 	cp freefont-20090104/FreeSansBold.ttf ${PREFIX}/share/jive/fonts
 
-# 
+#
 # This builds the .tarball. It's called by 'all' so no need to run it manually
-# 
+#
 squeezeplay-tgz: squeezeplay/Makefile
 	cd squeezeplay; make squeezeplay-tgz
 

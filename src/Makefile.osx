@@ -197,11 +197,11 @@ tolua++:
 app: portaudio flac libmad tremor squeezeplay squeezeplay_desktop squeezeplay_contrib freefont squeezeplay_dmg
 
 # portaudio
-portaudio_v19_1360/Makefile:
-	cd portaudio_v19_1360; ./configure CC= --prefix=${PREFIX}
+portaudio/Makefile:
+	cd portaudio; ./configure CC= --prefix=${PREFIX}
 
-portaudio: portaudio_v19_1360/Makefile
-	cd portaudio_v19_1360; make && make install
+portaudio: portaudio/Makefile
+	cd portaudio; make && make install
 
 # flac
 flac-1.2.1/Makefile:
@@ -291,7 +291,7 @@ clean:
 	-cd squeezeplay; make distclean ; rm -rf x86; rm -rf ppc
 	@echo "----------------------------------------------------------"
 	@echo "Cleaning: portaudio"
-	-cd portaudio_v19_1360; make distclean
+	-cd portaudio; make distclean
 	@echo "----------------------------------------------------------"
 	@echo "Cleaning: tremor"
 	-cd Tremor; make distclean ; rm -rf x86; rm -rf ppc
