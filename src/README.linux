@@ -8,4 +8,4 @@ $ make -f Makefile.linux
 
 ## Requirements:
 
-sudo apt-get install build-essential flex bison subversion automake libtool libpng12-dev libjpeg62-dev libexpat1-dev libreadline5-dev xorg-dev libflac++-dev libvorbis-dev libvorbisidec-dev libasound-dev
+sudo apt-get install build-essential flex bison subversion automake libtool libpng12-dev libjpeg62-dev libexpat1-dev xorg-dev libflac++-dev libvorbis-dev libvorbisidec-dev libasound-dev libreadline6-dev

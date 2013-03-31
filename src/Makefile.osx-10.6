@@ -93,11 +93,11 @@ libjpeg: jpeg-6b/Makefile
 	cd jpeg-6b; make && make install
 	
 # sdl - check for existance of just one of the Makefiles to determine if we should reconfigure for each
-SDL-1.2.13/build/x86/Makefile:
-	cd SDL-1.2.13; sh build-scripts/fatbuild-10.6.sh configure CONFIGURE_FLAGS_EXTRA="--disable-video-x11 --disable-nasm"
+SDL/build/x86/Makefile:
+	cd SDL; sh build-scripts/fatbuild-10.6.sh configure CONFIGURE_FLAGS_EXTRA="--disable-video-x11 --disable-nasm"
 
-sdl: SDL-1.2.13/build/x86/Makefile
-	cd SDL-1.2.13; sh build-scripts/fatbuild-10.6.sh make && sh build-scripts/fatbuild-10.6.sh install
+sdl: SDL/build/x86/Makefile
+	cd SDL; sh build-scripts/fatbuild-10.6.sh make && sh build-scripts/fatbuild-10.6.sh install
 
 # sdl_image (requires jpeg tiff png)
 SDL_image-1.2.5/Makefile:
@@ -311,7 +311,7 @@ clean:
 	-cd squeezeplay; make distclean ; rm -rf x86; rm -rf x86_64
 	@echo "----------------------------------------------------------"
 	@echo "Cleaning: SDL"
-	-cd SDL-1.2.13; rm -f include/SDL_config.h;  rm -rf build/x86; rm -rf build/x86_64
+	-cd SDL; rm -f include/SDL_config.h;  rm -rf build/x86; rm -rf build/x86_64
 	@echo "----------------------------------------------------------"
 	@echo "Cleaning: SDL_image"
 	-cd SDL_image-1.2.5; make distclean ; rm -rf x86; rm -rf x86_64
